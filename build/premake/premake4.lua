@@ -252,3 +252,53 @@ solution "oe"
       includedirs { OE3rdPartyIncPath.."/JSBSim" }
       targetname "Vehicles"
 
+   -- CLIPS
+   project "clips"
+      files {
+         "../../include/openeaagles/clips/**.h",
+         "../../src/clips/**.cpp",
+         "../../src/clips/**.c"
+      }
+      buildoptions {"/TP"}
+      defines { "WIN_MVC" }
+      includedirs { 
+        "../../include/openeaagles/clips/clips",
+        "../../include/openeaagles/clips" 
+      }
+      targetname "Clips"
+
+   -- xBehaviors
+   project "xBehaviors"
+      files {
+         "../../include/openeaagles/xBehaviors/**.h",
+         "../../src/xBehaviors/**.cpp"
+      }
+      includedirs { "../../include/openeaagles/xBehaviors" }
+      targetname "xBehaviors"
+      
+   -- LUA
+   project "lua"
+      files {
+         "../../include/openeaagles/lua/**.h",
+         "../../include/openeaagles/lua/**.hpp",
+         "../../src/lua/**.cpp",
+         "../../src/lua/**.c"
+      }
+      includedirs { 
+        "../../include/openeaagles/lua",
+        "../../include/openeaagles/lua/lua-5.2.3"
+      }
+      targetname "Lua"
+      
+    
+    -- SOAR
+    project "soar"
+    files {
+        "../../include/openeaagles/soar/**.h",
+        "../../include/openeaagles/soar/**.hpp",
+        "../../src/soar/**.c",
+        "../../src/soar/**.cpp"
+    }
+    defines { "STATIC_LINKED" }
+    
+    targetname "Soar"
