@@ -1,3 +1,20 @@
+/**
+ * @file        LuaBehavior.h
+ * @brief       Declaration of class LuaBehavior.
+ * @details     It is used to interface with Lua and allow creation of behaviors in Lua script language.
+ *
+ * @author      Marsil de Athayde Costa e Silva,
+ * @author      Instituto Tecnologico de Aeronautica - ITA
+ * @author      Laboratorio de Comando e Controle - ITA LAB C2
+ * 
+ * @date        30/05/2014
+ * @version     1.0
+ * @pre         
+ * @bug         
+ * @copyright   Copyright (c) 2014
+ *
+ */
+
 #ifndef _LUA_BEHAVIOR_H_
 #define _LUA_BEHAVIOR_H_
 
@@ -22,28 +39,17 @@
 #include <vector>
 
 namespace Eaagles {
-namespace Basic {
-namespace Ubf {
-    class Action;
-    class Behabior;
-}
-}
-namespace xBehaviors {
-    class PlaneBehaviorBase;
-    class PlaneAction;
-    class PlaneState;
-}
-namespace Lua {
-#define TYPE_FLOAT      0
-#define TYPE_CHAR       1
-#define TYPE_INT        2
-#define TYPE_BOOL       3
 
-//------------------------------------------------------------------------------
-// Class: LuaBehavior
-//
-// Description: Behavior class to handle a Lua behavior script
-//------------------------------------------------------------------------------
+namespace Lua {
+
+const int TYPE_FLOAT = 0;
+const int TYPE_CHAR  = 1;
+const int TYPE_INT   = 2;
+const int TYPE_BOOL  = 3;
+
+/** @class LuaBehavior
+ *  @brief Behavior class to handle a Lua behavior script.
+ */
 class LuaBehavior : public Eaagles::xBehaviors::PlaneBehaviorBase
 {
     DECLARE_SUBCLASS(LuaBehavior, Eaagles::xBehaviors::PlaneBehaviorBase)
@@ -60,13 +66,20 @@ public:
     char * getLuaFunctionName(){ return luaFunctionName; };
     void setLuaFunctionName( char * str ){ luaFunctionName = str; };
     bool setSlotLuaFunctionName( Basic::String * const );
-
+    
     Basic::PairStream * getLuaParams(){ return luaParams; };
     bool setSlotLuaParams( Basic::PairStream * const );
 
 private:
     char * luaFileName;
     char * luaFunctionName;
+    
+    /** 
+     * @property luaParams
+     * @brief This is intended to allow user to create functions with any number of input parameter.
+     * The parameters should be set in the EPP file by setting the identifier to float, char, int or bool. For example:
+     * float: 1.0
+     */
     Basic::PairStream * luaParams;
     lua_State   * m_lua_State;
     std::vector<char> luaParamsTypes;

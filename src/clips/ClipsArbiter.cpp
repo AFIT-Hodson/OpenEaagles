@@ -1,6 +1,19 @@
-//------------------------------------------------------------------------------
-// Class: ClipsArbiter
-//------------------------------------------------------------------------------
+/**
+ * @file        ClipsArbiter.cpp
+ * @brief       Implementation of class ClipsArbiter.
+ * @details     
+ *
+ * @author      Marsil de Athayde Costa e Silva,
+ * @author      Instituto Tecnologico de Aeronautica - ITA
+ * @author      Laboratorio de Comando e Controle - ITA LAB C2
+ * 
+ * @date        15/04/2014
+ * @version     1.0
+ * @pre         
+ * @bug         
+ * @copyright   Copyright (c) 2014
+ *
+ */
 #include "openeaagles/clips/ClipsArbiter.h"
 
 namespace Eaagles {
@@ -10,22 +23,20 @@ IMPLEMENT_SUBCLASS(ClipsArbiter, "ClipsArbiter")
 EMPTY_COPYDATA(ClipsArbiter)
 EMPTY_SERIALIZER(ClipsArbiter)
 
-//------------------------------------------------------------------------------
-// slot table for this class type
-//------------------------------------------------------------------------------
+/** Slot table for this class type. */
 BEGIN_SLOTTABLE(ClipsArbiter)
-   "clipsFileName",                //  1) clipsFileName
+   "clipsFileName",                /**  1) clipsFileName */
 END_SLOTTABLE(ClipsArbiter)
 
-//  mapping of slots to handles
+/** Mapping of slots to handles. */
 BEGIN_SLOT_MAP(ClipsArbiter)
    ON_SLOT(1, setSlotClipsFileName, Basic::String)
 END_SLOT_MAP()
 
 
-//------------------------------------------------------------------------------
-// Class support functions
-//------------------------------------------------------------------------------
+/**
+ * @brief Class constructor.
+ */
 ClipsArbiter::ClipsArbiter()
 {
     STANDARD_CONSTRUCTOR()
@@ -34,15 +45,18 @@ ClipsArbiter::ClipsArbiter()
     clipsFileName       = new Basic::String();
 }
 
+/**
+ * @brief Delete data.
+ */
 void ClipsArbiter::deleteData()
 {
     if ( clipsFileName != 0 ) { clipsFileName -> unref(); clipsFileName = 0; }
     if ( clipsCppEnv != 0 ) { clipsCppEnv -> ~CLIPSCPPEnv(); clipsCppEnv = 0; }
 }
 
-//------------------------------------------------------------------------------
-// genAction() - generate an action
-//------------------------------------------------------------------------------
+/**
+ * @brief Generates an action.
+ */
 Basic::Ubf::Action* ClipsArbiter::genAction(const Basic::Ubf::State* const state, const LCreal dt)
 {
     static LCreal l_timer = 1;
@@ -65,9 +79,10 @@ Basic::Ubf::Action* ClipsArbiter::genAction(const Basic::Ubf::State* const state
 }
 
 
-//------------------------------------------------------------------------------
-// Default: select the action with the highest vote
-//------------------------------------------------------------------------------
+/**
+ * @brief Generates a complex action from a set of actions.
+ * Default: select the action with the highest vote.
+ */
 Basic::Ubf::Action* ClipsArbiter::genComplexAction(Basic::List* const actionSet)
 {
     Eaagles::xBehaviors::PlaneAction * complexAction = new Eaagles::xBehaviors::PlaneAction;
@@ -129,15 +144,18 @@ Basic::Ubf::Action* ClipsArbiter::genComplexAction(Basic::List* const actionSet)
     return complexAction;
 }
 
+/**
+ * @brief Clear the list of behavior.
+ */
 void ClipsArbiter::clearBehaviors()
 {
     while( getBehaviors() -> removeHead() != 0 ){}
 }
 
-//------------------------------------------------------------------------------
-// Slot functions
-//------------------------------------------------------------------------------
-bool ClipsArbiter::setSlotClipsFileName( Basic::String * const x )
+/**
+ * @brief Set slot ClipsFileName.
+ */
+ bool ClipsArbiter::setSlotClipsFileName( Basic::String * const x )
 {
     if ( clipsFileName != 0 )
     {
@@ -180,14 +198,17 @@ bool ClipsArbiter::setSlotClipsFileName( Basic::String * const x )
     return true;
 }
 
-//------------------------------------------------------------------------------
-// getSlotByIndex()
-//------------------------------------------------------------------------------
+/**
+ * @brief getSlotByIndex()
+ */
 Basic::Object* ClipsArbiter::getSlotByIndex(const int si)
 {
    return BaseClass::getSlotByIndex(si);
 }
 
+/**
+ * @brief trimChangeValidation()
+ */
 void ClipsArbiter::trimChangeValidation(Basic::Ubf::Action* const complexAction)
 {
    Eaagles::xBehaviors::PlaneAction * action = (Eaagles::xBehaviors::PlaneAction*)(complexAction);
@@ -214,9 +235,8 @@ void ClipsArbiter::trimChangeValidation(Basic::Ubf::Action* const complexAction)
 }
 
 /**
- * @brief Create a string <dest> with the facts to be passed to clips.
+ * @brief Assert the CLIPS' facts from PlaneState.
  * @param state Current state of the aircraft.
- * @param dest Array to store the string.
  * @return Nothing.
  */
 void ClipsArbiter::assertFacts( const Basic::Ubf::State * state )
@@ -298,6 +318,7 @@ void ClipsArbiter::assertFacts( const Basic::Ubf::State * state )
         clipsCppEnv -> Eval( l_str );
     }
 }
+
 /**
  * @brief Retrieves the facts from CLIPS' environment and transform them into Eaagles' objects and behaviors.
  * 

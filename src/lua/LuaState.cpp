@@ -1,18 +1,19 @@
 /**
- * @file  LuaState.cpp
- * @brief  Declaration of class PlaneAction.
+ * @file        LuaState.cpp
+ * @brief       Implementation of class LuaState.
+ * @details     
  *
- * @author   (),
- *
- * @internal
- * Created  30/05/2014
- * Revision  $Id
- * Compiler  gcc/g++
- * Company  
- * Copyright  Copyright (c) 2014, 
+ * @author      Marsil de Athayde Costa e Silva,
+ * @author      Instituto Tecnologico de Aeronautica - ITA
+ * @author      Laboratorio de Comando e Controle - ITA LAB C2
+ * 
+ * @date        30/05/2014
+ * @version     1.0
+ * @pre         
+ * @bug         
+ * @copyright   Copyright (c) 2014
  *
  */
-
 #include "openeaagles/lua/LuaState.h"
 
 namespace Eaagles {
@@ -58,11 +59,17 @@ const Luna<Eaagles::Lua::LuaState>::PropertyType Eaagles::Lua::LuaState::propert
     { NULL, NULL, NULL }
 };
 
+/**
+ * @brief Class constructor from lua_State.
+ */
 LuaState::LuaState( lua_State * l )
 {
 
 }
 
+/**
+ * @brief Class constructor from PlaneState.
+ */
 LuaState::LuaState( const PlaneState * pState )
 {
     setAlive            ( pState -> isAlive( )          );
@@ -92,120 +99,180 @@ LuaState::LuaState( const PlaneState * pState )
     }
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getRoll( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getRoll() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getPitch( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getPitch() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getHeading( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getHeading() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getRollRate( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getRollRate() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getPitchRate( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getPitchRate() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getYawRate( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getYawRate() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getAltitude( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getAltitude() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getThrottle( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getThrottle() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getSpeed( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getSpeed() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getPitchTrim( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getPitchTrim() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getNumTracks( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getNumTracks() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getTargetTrack( lua_State * l )
 {
     lua_pushinteger( l, BaseClass::getTargetTrack() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getNumEngines( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getNumEngines() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::isAlive( lua_State * l )
 {
     lua_pushboolean( l, BaseClass::isAlive() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::isIncomingMissile( lua_State * l )
 {
     lua_pushboolean( l, BaseClass::isIncomingMissile() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::isTracking( lua_State * l )
 {
     lua_pushboolean( l, BaseClass::isTracking() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::isMissileFired( lua_State * l )
 {
     lua_pushboolean( l, BaseClass::isMissileFired() );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getPitchToTracked( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getPitchToTracked( luaL_checkinteger( l, -1 ) ) );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getHeadingToTracked( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getHeadingToTracked( luaL_checkinteger( l, -1 ) ) );
     return 1;
 }
 
+/**
+ * @brief Interface to allow Lua to handle parameters.
+ */
 int LuaState::getDistanceToTracked( lua_State * l )
 {
     lua_pushnumber( l, BaseClass::getDistanceToTracked( luaL_checkinteger( l, -1 ) ) );

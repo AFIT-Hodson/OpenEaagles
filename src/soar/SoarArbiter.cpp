@@ -1,18 +1,19 @@
 /**
- * @file  SoarArbiter.cpp
- * @brief  Declaration of class SoarArbiter.
+ * @file        SoarArbiter.cpp
+ * @brief       Implementation of class SoarArbiter.
+ * @details     
  *
- * @author   (),
- *
- * @internal
- * Created  13/06/2014
- * Revision  $Id
- * Compiler  msvc
- * Company  
- * Copyright  Copyright (c) 2014, 
+ * @author      Marsil de Athayde Costa e Silva,
+ * @author      Instituto Tecnologico de Aeronautica - ITA
+ * @author      Laboratorio de Comando e Controle - ITA LAB C2
+ * 
+ * @date        13/06/2014
+ * @version     1.0
+ * @pre         
+ * @bug         
+ * @copyright   Copyright (c) 2014
  *
  */
-
 #include "openeaagles/soar/SoarArbiter.h"
 
 namespace Eaagles {
@@ -22,30 +23,30 @@ IMPLEMENT_SUBCLASS(SoarArbiter, "SoarArbiter")
 EMPTY_COPYDATA(SoarArbiter)
 EMPTY_SERIALIZER(SoarArbiter)
 
-//------------------------------------------------------------------------------
-// slot table for this class type
-//------------------------------------------------------------------------------
+/** Slot table for this class type. */
 BEGIN_SLOTTABLE(SoarArbiter)
-   "soarFileName",                //  1) soarFileName
+   "soarFileName",                /**  1) soarFileName */
 END_SLOTTABLE(SoarArbiter)
 
-//  mapping of slots to handles
+/** Mapping of slots to handles. */
 BEGIN_SLOT_MAP(SoarArbiter)
    ON_SLOT(1, setSlotSoarFileName, Basic::String)
 END_SLOT_MAP()
 
-//------------------------------------------------------------------------------
-// Constructor
-//------------------------------------------------------------------------------
+ 
+/**
+ * @brief Class constructor.
+ */
 SoarArbiter::SoarArbiter()
 {
     STANDARD_CONSTRUCTOR()
     soarFileName = new Basic::String();
 }
 
-//------------------------------------------------------------------------------
-// deleteData()
-//----------------------------------------------------------------------------
+ 
+/**
+ * @brief deleteData()
+ */
 void SoarArbiter::deleteData()
 {
     if ( soarFileName != 0 ) { soarFileName -> unref(); soarFileName = 0; }
@@ -53,9 +54,9 @@ void SoarArbiter::deleteData()
     delete m_Kernel;
 }
 
-//------------------------------------------------------------------------------
-// Slot functions
-//------------------------------------------------------------------------------
+/**
+ * @brief Set slot SoarFileName.
+ */
 bool SoarArbiter::setSlotSoarFileName( Basic::String * const x )
 {
     if ( soarFileName != 0 )
@@ -73,17 +74,19 @@ bool SoarArbiter::setSlotSoarFileName( Basic::String * const x )
     return true;
 }
 
-//------------------------------------------------------------------------------
-// getSlotByIndex()
-//------------------------------------------------------------------------------
+ 
+/**
+ * @brief getSlotByIndex()
+ */
 Basic::Object* SoarArbiter::getSlotByIndex(const int si)
 {
    return BaseClass::getSlotByIndex(si);
 }
 
-//------------------------------------------------------------------------------
-// genAction() - generate an action
-//------------------------------------------------------------------------------
+ 
+/**
+ * @brief Generates an actions by calling a SOAR script.
+ */
 Basic::Ubf::Action * SoarArbiter::genAction( const Basic::Ubf::State* const state, const LCreal dt )
 {
     static LCreal l_timer = 1;
@@ -104,9 +107,9 @@ Basic::Ubf::Action * SoarArbiter::genAction( const Basic::Ubf::State* const stat
     return BaseClass::genAction( state, dt );
 }
 
-//------------------------------------------------------------------------------
-// Default: select the action with the highest vote
-//------------------------------------------------------------------------------
+/**
+ * @brief Generates a complex action from a set of actions. By default, it selects the action with the highest vote.
+ */
 Basic::Ubf::Action * SoarArbiter::genComplexAction( Basic::List* const actionSet )
 {
     Eaagles::xBehaviors::PlaneAction * complexAction = new Eaagles::xBehaviors::PlaneAction;
@@ -168,6 +171,9 @@ Basic::Ubf::Action * SoarArbiter::genComplexAction( Basic::List* const actionSet
     return complexAction;
 }
 
+/**
+ * @brief trimChangeValidation()
+ */
 void SoarArbiter::trimChangeValidation( Basic::Ubf::Action * const complexAction )
 {
     Eaagles::xBehaviors::PlaneAction * action = (Eaagles::xBehaviors::PlaneAction*)(complexAction);
@@ -194,6 +200,9 @@ void SoarArbiter::trimChangeValidation( Basic::Ubf::Action * const complexAction
     return;
 }
 
+/**
+ * @brief Initialize Soar agent.
+ */
 void SoarArbiter::initSoar()
 {
     m_Kernel = Kernel::CreateKernelInNewThread();
@@ -245,6 +254,9 @@ void SoarArbiter::initSoar()
     m_soarState -> setDistanceToTracked ( m_smlAgent -> CreateFloatWME( m_ID, "distance-to-tracked-is", 0 ) );
 }
 
+/**
+ * @brief Commit the states of the aircraft.
+ */
 void SoarArbiter::Commit( const Basic::Ubf::State * const state )
 {
     const Eaagles::xBehaviors::PlaneState * l_state = dynamic_cast<const Eaagles::xBehaviors::PlaneState*> ( state );
@@ -285,11 +297,17 @@ void SoarArbiter::Commit( const Basic::Ubf::State * const state )
     m_smlAgent -> Commit();
 }
 
+/**
+ * @brief Run Soar.
+ */
 void SoarArbiter::Run()
 {
     m_smlAgent -> RunSelfTilOutput();
 }
 
+/**
+ * @brief Retrieves information from Soar environment.
+ */
 void SoarArbiter::Retrieve()
 {
     sml::Identifier * l_OutputLink = m_smlAgent -> GetOutputLink();

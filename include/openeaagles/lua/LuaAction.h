@@ -1,15 +1,17 @@
 /**
- * @file  LuaAction.h
- * @brief  Declaration of class LuaAction.
+ * @file        LuaAction.h
+ * @brief       Declaration of class LuaAction.
+ * @details     It is intended to expose its parent class PlaneAction to Lua state.
  *
- * @author  Marsil,
- *
- * @internal
- * Created  30/05/2014
- * Revision  $Id
- * Compiler  gcc/g++
- * Company  
- * Copyright  Copyright (c) 2014, 
+ * @author      Marsil de Athayde Costa e Silva,
+ * @author      Instituto Tecnologico de Aeronautica - ITA
+ * @author      Laboratorio de Comando e Controle - ITA LAB C2
+ * 
+ * @date        30/05/2014
+ * @version     1.0
+ * @pre         
+ * @bug         
+ * @copyright   Copyright (c) 2014
  *
  */
 
@@ -23,22 +25,28 @@
 
 namespace Eaagles {
 
-namespace xBehaviors {
-    class PlaneAction;
-}
-
 namespace Lua {
-/**
- * @brief
- */
 
+/** @class LuaAction
+ *  @brief This class exposes PlaneAction to Lua state.
+ */
 class LuaAction : public Eaagles::xBehaviors::PlaneAction
 {
     DECLARE_SUBCLASS(LuaAction, Eaagles::xBehaviors::PlaneAction)
 public:
+    /** @property className 
+     *  @brief Name used by Luna template class.
+     */
     static const char * className;
+    /** @property methods 
+     *  @brief List of methods to expose to Lua.
+     */
     static const Luna<Eaagles::Lua::LuaAction>::FunctionType methods[];
+    /** @property properties 
+     *  @brief List of properties to expose to Lua (setters and getters).
+     */
     static const Luna<Eaagles::Lua::LuaAction>::PropertyType properties[];
+    
     LuaAction();
     LuaAction( lua_State * l );
 

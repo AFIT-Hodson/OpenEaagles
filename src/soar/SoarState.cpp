@@ -1,18 +1,19 @@
 /**
- * @file  SoarState.cpp
- * @brief  Declaration of class SoarState.
+ * @file        SoarState.cpp
+ * @brief       Implementation of class SoarState
+ * @details     
  *
- * @author   (),
- *
- * @internal
- * Created  13/06/2014
- * Revision  $Id
- * Compiler  msvc
- * Company  
- * Copyright  Copyright (c) 2014, 
+ * @author      Marsil de Athayde Costa e Silva,
+ * @author      Instituto Tecnologico de Aeronautica - ITA
+ * @author      Laboratorio de Comando e Controle - ITA LAB C2
+ * 
+ * @date        13/06/2014
+ * @version     1.0
+ * @pre         
+ * @bug         
+ * @copyright   Copyright (c) 2014
  *
  */
-
 #include "openeaagles/soar/SoarState.h"
 
 namespace Eaagles {
@@ -24,10 +25,17 @@ EMPTY_SERIALIZER(SoarState)
 EMPTY_SLOTTABLE(SoarState)
 EMPTY_DELETEDATA(SoarState)
 
+/**
+ * @brief Class constructor.
+ */
 SoarState::SoarState()
 {
     
 }
+
+/**
+ * @brief Class constructor with Agent.
+ */
 SoarState::SoarState( sml::Agent * agent )
 {
     setAgent( agent );

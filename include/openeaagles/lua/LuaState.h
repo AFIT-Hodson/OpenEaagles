@@ -1,15 +1,17 @@
-/**
- * @file  LuaState.h
- * @brief  Declaration of class LuaState.
+ /**
+ * @file        LuaState.h
+ * @brief       Declaration of class LuaState.
+ * @details     It is intended to expose its parent class PlaneState to Lua state.
  *
- * @author  Marsil,
- *
- * @internal
- * Created  30/05/2014
- * Revision  $Id
- * Compiler  gcc/g++
- * Company  
- * Copyright  Copyright (c) 2014, 
+ * @author      Marsil de Athayde Costa e Silva,
+ * @author      Instituto Tecnologico de Aeronautica - ITA
+ * @author      Laboratorio de Comando e Controle - ITA LAB C2
+ * 
+ * @date        30/05/2014
+ * @version     1.0
+ * @pre         
+ * @bug         
+ * @copyright   Copyright (c) 2014
  *
  */
 
@@ -23,22 +25,29 @@
 
 namespace Eaagles {
 
-namespace xBehaviors {
-    class PlaneState;
-}
-
 namespace Lua {
-/**
- * @brief
- */
 
+/** @class LuaState
+ *  @brief This class exposes LuaState to Lua state.
+ */
 class LuaState : public Eaagles::xBehaviors::PlaneState
 {
     DECLARE_SUBCLASS(LuaState, Eaagles::xBehaviors::PlaneState)
 public:
+    /** @property className 
+     *  @brief Name used by Luna template class.
+     */
     static const char * className;
+    /** @property methods 
+     *  @brief List of methods to expose to Lua.
+     *  Tracking methods are put in this property because they need an input parameter.
+     */
     static const Luna<Eaagles::Lua::LuaState>::FunctionType methods[];
+    /** @property properties 
+     *  @brief List of properties to expose to Lua (setters and getters).
+     */
     static const Luna<Eaagles::Lua::LuaState>::PropertyType properties[];
+    
     LuaState(){};
     LuaState( lua_State * l );
     LuaState( const PlaneState * pState );

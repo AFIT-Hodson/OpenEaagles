@@ -1,18 +1,20 @@
 /**
- * @file  SoarState.h
- * @brief  Declaration of class SoarState.
+ * @file        SoarState.h
+ * @brief       Declaration of class SoarState.
+ * @details     It is used to expose its parent PlaneState to Soar.
  *
- * @author  Marsil,
- *
- * @internal
- * Created  13/06/2014
- * Revision  $Id
- * Compiler  msvc
- * Company  
- * Copyright  Copyright (c) 2014, 
+ * @author      Marsil de Athayde Costa e Silva,
+ * @author      Instituto Tecnologico de Aeronautica - ITA
+ * @author      Laboratorio de Comando e Controle - ITA LAB C2
+ * 
+ * @date        13/06/2014
+ * @version     1.0
+ * @pre         
+ * @bug         
+ * @copyright   Copyright (c) 2014
  *
  */
-
+ 
 #ifndef _SOAR_STATE_H_
 #define _SOAR_STATE_H_
 
@@ -22,16 +24,12 @@
 
 namespace Eaagles {
 
-namespace xBehaviors {
-    class PlaneState;
-}
-
 namespace Soar {
-/**
- * @brief
- */
-using namespace sml;
 
+using namespace sml;
+/** @class SoarState
+ *  @brief This class is used to expose PlaneState to Soar.
+ */
 class SoarState : public Eaagles::xBehaviors::PlaneState
 {
     DECLARE_SUBCLASS(SoarState, Eaagles::xBehaviors::PlaneState)

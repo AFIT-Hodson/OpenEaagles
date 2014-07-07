@@ -1,18 +1,19 @@
 /**
- * @file  SoarArbiter.h
- * @brief  Declaration of class SoarArbiter.
+ * @file        SoarArbiter.h
+ * @brief       Declaration of class SoarArbiter.
+ * @details     It is an arbiter that uses Soar to generate actions.
  *
- * @author  Marsil,
- *
- * @internal
- * Created  13/06/2014
- * Revision  $Id
- * Compiler  msvc
- * Company  
- * Copyright  Copyright (c) 2014, 
+ * @author      Marsil de Athayde Costa e Silva,
+ * @author      Instituto Tecnologico de Aeronautica - ITA
+ * @author      Laboratorio de Comando e Controle - ITA LAB C2
+ * 
+ * @date        13/06/2014
+ * @version     1.0
+ * @pre         
+ * @bug         
+ * @copyright   Copyright (c) 2014
  *
  */
-
 #ifndef _SOAR_ARBITER_H_
 #define _SOAR_ARBITER_H_
 
@@ -40,11 +41,16 @@
 namespace Eaagles {
 
 namespace Soar {
-/**
- * @brief
- */
 using namespace sml;
 
+/** @class SoarArbiter
+ *  @brief A meta-behavior that generates a "complex action" using Soar Cognitive Architecture.
+ *    Object -> Component -> Behavior -> Arbiter -> SoarArbiter
+ * 
+ * Factory name: SoarArbiter
+ * Slots:
+ *    soarFileName <String>        Name of the .soar file
+ */
 class SoarArbiter : public Eaagles::Basic::Ubf::Arbiter
 {
     DECLARE_SUBCLASS(SoarArbiter, Eaagles::Basic::Ubf::Arbiter)
